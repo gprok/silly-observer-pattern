@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class SouthPanel extends JPanel {
+public class SouthPanel extends JPanel implements ButtonListener {
 
     private int counter;
     private JLabel message;
@@ -16,4 +16,8 @@ public class SouthPanel extends JPanel {
         message.setText("Button clicked " + counter + " times");
     }
 
+    @Override
+    public void act() {
+        increaseCounter();
+    }
 }

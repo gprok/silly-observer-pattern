@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainWindow extends JFrame {
 
@@ -12,11 +14,13 @@ public class MainWindow extends JFrame {
     private SidePanel leftpanel;
     private SidePanel rightpanel;
 
+    private ArrayList<ButtonListener> blisteners;
+
     public MainWindow() {
         setSize(400,400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
+        ColorPanel panel = new ColorPanel();
 
         btn = new JButton("Click me!");
         panel.add(btn);
@@ -32,21 +36,21 @@ public class MainWindow extends JFrame {
         rightpanel = new SidePanel(false);
         add(rightpanel, BorderLayout.WEST);
 
+        blisteners = new ArrayList<>();
+        blisteners.add(panel);
+        blisteners.add(spanel);
+        blisteners.add(leftpanel);
+        blisteners.add(rightpanel);
+
+
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color color = panel.getBackground();
-                if(color == Color.RED) {
-                    panel.setBackground(Color.GREEN);
+                Iterator<ButtonListener> it = blisteners.iterator();
+                while(it.hasNext()) {
+                    ButtonListener b = it.next();
+                    b.act();
                 }
-                else {
-                    panel.setBackground(Color.RED);
-                }
-
-                spanel.increaseCounter();
-
-                leftpanel.changeText();
-                rightpanel.changeText();
             }
         });
 

@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class SidePanel extends JPanel {
+public class SidePanel extends JPanel implements ButtonListener {
 
     JLabel message;
 
@@ -21,5 +21,10 @@ public class SidePanel extends JPanel {
         else {
             message.setText("Hello");
         }
+    }
+
+    @Override
+    public void act() {
+        changeText();
     }
 }
